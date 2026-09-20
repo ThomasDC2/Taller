@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="co.edu.uniquindio.poo.taller.controller.BibliotecaController"
+            style="-fx-background-color: #f8fafc;">
+    <top>
+        <VBox spacing="6.0" style="-fx-background-color: #0f172a;">
+            <padding>
+                <Insets bottom="14.0" left="20.0" right="20.0" top="16.0"/>
+            </padding>
+            <Label text="Biblioteca universitaria" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Label text="Administracion de libros, prestamos y configuracion general" style="-fx-text-fill: #cbd5e1;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <GridPane hgap="16.0" vgap="16.0">
+            <padding>
+                <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="36.0"/>
+                <ColumnConstraints percentWidth="64.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="100.0"/>
+            </rowConstraints>
+
+            <VBox spacing="12.0" GridPane.columnIndex="0">
+                <VBox spacing="8.0" style="-fx-background-color: white; -fx-border-color: #dbe4ee; -fx-border-radius: 8; -fx-background-radius: 8;">
+                    <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                    </padding>
+                    <Label text="Configuracion" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="nombreBibliotecaField" promptText="Nombre"/>
+                    <TextField fx:id="direccionField" promptText="Direccion"/>
+                    <TextField fx:id="porcentajeMultaField" promptText="Porcentaje multa"/>
+                    <Button maxWidth="Infinity" onAction="#guardarConfiguracion" text="Guardar configuracion"/>
+                </VBox>
+
+                <VBox spacing="8.0" style="-fx-background-color: white; -fx-border-color: #dbe4ee; -fx-border-radius: 8; -fx-background-radius: 8;">
+                    <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                    </padding>
+                    <Label text="Registrar libro" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="codigoField" promptText="Codigo"/>
+                    <TextField fx:id="tituloField" promptText="Titulo"/>
+                    <TextField fx:id="autorField" promptText="Autor"/>
+                    <ComboBox fx:id="categoriaCombo" maxWidth="Infinity" promptText="Categoria"/>
+                    <HBox spacing="8.0">
+                        <Button maxWidth="Infinity" onAction="#registrarLibro" text="Registrar" HBox.hgrow="ALWAYS"/>
+                        <Button maxWidth="Infinity" onAction="#limpiarFormularioLibro" text="Limpiar" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="8.0" style="-fx-background-color: white; -fx-border-color: #dbe4ee; -fx-border-radius: 8; -fx-background-radius: 8;">
+                    <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                    </padding>
+                    <Label text="Clonar libro" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TextField fx:id="codigoBaseField" promptText="Codigo base"/>
+                    <TextField fx:id="nuevoCodigoField" promptText="Nuevo codigo"/>
+                    <Button maxWidth="Infinity" onAction="#clonarLibro" text="Clonar libro"/>
+                </VBox>
+            </VBox>
+
+            <VBox spacing="12.0" GridPane.columnIndex="1">
+                <VBox spacing="8.0">
+                    <Label text="Libros registrados" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="librosTable" prefHeight="250.0">
+                        <columns>
+                            <TableColumn fx:id="codigoColumn" prefWidth="90.0" text="Codigo"/>
+                            <TableColumn fx:id="tituloColumn" prefWidth="220.0" text="Titulo"/>
+                            <TableColumn fx:id="autorColumn" prefWidth="150.0" text="Autor"/>
+                            <TableColumn fx:id="categoriaColumn" prefWidth="120.0" text="Categoria"/>
+                            <TableColumn fx:id="estadoColumn" prefWidth="100.0" text="Estado"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <Separator/>
+
+                <HBox spacing="12.0">
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label text="Prestar libro" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="codigoPrestamoField" promptText="Codigo del libro"/>
+                        <TextField fx:id="diasPrestamoField" promptText="Dias"/>
+                        <Button maxWidth="Infinity" onAction="#prestarLibro" text="Registrar prestamo"/>
+                    </VBox>
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <Label text="Devolver libro" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="codigoDevolucionField" promptText="Codigo del libro"/>
+                        <Button maxWidth="Infinity" onAction="#devolverLibro" text="Registrar devolucion"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                    <Label text="Prestamos" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="prestamosTable" prefHeight="220.0">
+                        <columns>
+                            <TableColumn fx:id="libroPrestamoColumn" prefWidth="110.0" text="Libro"/>
+                            <TableColumn fx:id="fechaPrestamoColumn" prefWidth="130.0" text="Prestamo"/>
+                            <TableColumn fx:id="fechaLimiteColumn" prefWidth="130.0" text="Limite"/>
+                            <TableColumn fx:id="fechaDevolucionColumn" prefWidth="130.0" text="Devolucion"/>
+                            <TableColumn fx:id="estadoPrestamoColumn" prefWidth="110.0" text="Estado"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <Label fx:id="mensajeLabel" text="Sistema listo" style="-fx-text-fill: #166534;"/>
+            </VBox>
+        </GridPane>
+    </center>
+</BorderPane>
