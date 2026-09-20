@@ -7,11 +7,13 @@ public enum CategoriaLibro {
 
     private final String nombre;
 
+    /** Asigna el nombre visible que se muestra para cada categoria. */
     CategoriaLibro(String nombre) {
         this.nombre = nombre;
     }
 
     @Override
+    /** Devuelve el nombre legible de la categoria para la interfaz. */
     public String toString() {
         return nombre;
     }

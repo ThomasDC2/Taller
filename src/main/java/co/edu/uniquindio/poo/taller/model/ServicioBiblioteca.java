@@ -10,6 +10,7 @@ public class ServicioBiblioteca {
     private final List<Libro> libros = new ArrayList<>();
     private final List<Prestamo> prestamos = new ArrayList<>();
 
+    /** Valida y agrega al catalogo un libro con codigo unico. */
     public void registrarLibro(Libro libro) {
         if (libro == null) {
             throw new IllegalArgumentException("El libro es obligatorio");
@@ -20,6 +21,7 @@ public class ServicioBiblioteca {
         libros.add(libro);
     }
 
+    /** Clona un libro existente y registra la copia bajo un codigo nuevo. */
     public Libro clonarLibro(String codigoBase, String nuevoCodigo) {
         Libro libroBase = buscarLibroPorCodigo(codigoBase)
                 .orElseThrow(() -> new IllegalArgumentException("No existe el libro base"));
@@ -28,6 +30,7 @@ public class ServicioBiblioteca {
         return copia;
     }
 
+    /** Crea un prestamo activo y cambia el estado del libro a PRESTADO. */
     public Prestamo prestarLibro(String codigoLibro, int diasPrestamo) {
         Libro libro = buscarLibroPorCodigo(codigoLibro)
                 .orElseThrow(() -> new IllegalArgumentException("No existe el libro indicado"));
@@ -37,6 +40,7 @@ public class ServicioBiblioteca {
         return prestamo;
     }
 
+    /** Finaliza el prestamo activo y devuelve el libro al estado DISPONIBLE. */
     public Prestamo devolverLibro(String codigoLibro) {
         Libro libro = buscarLibroPorCodigo(codigoLibro)
                 .orElseThrow(() -> new IllegalArgumentException("No existe el libro indicado"));
@@ -47,6 +51,7 @@ public class ServicioBiblioteca {
         return prestamo;
     }
 
+    /** Busca un libro por codigo sin distinguir mayusculas de minusculas. */
     public Optional<Libro> buscarLibroPorCodigo(String codigo) {
         if (codigo == null) {
             return Optional.empty();
@@ -56,6 +61,7 @@ public class ServicioBiblioteca {
                 .findFirst();
     }
 
+    /** Busca el prestamo activo asociado al codigo de un libro. */
     public Optional<Prestamo> buscarPrestamoActivo(String codigoLibro) {
         if (codigoLibro == null) {
             return Optional.empty();
@@ -66,10 +72,12 @@ public class ServicioBiblioteca {
                 .findFirst();
     }
 
+    /** Expone una vista no modificable del catalogo de libros. */
     public List<Libro> obtenerLibros() {
         return Collections.unmodifiableList(libros);
     }
 
+    /** Expone una vista no modificable del historial de prestamos. */
     public List<Prestamo> obtenerPrestamos() {
         return Collections.unmodifiableList(prestamos);
     }

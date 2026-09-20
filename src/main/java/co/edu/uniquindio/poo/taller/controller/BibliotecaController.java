@@ -76,6 +76,7 @@ public class BibliotecaController {
     private Label mensajeLabel;
 
     @FXML
+    /** Inicializa los controles y carga la informacion inicial en la vista. */
     public void initialize() {
         configurarFormulario();
         configurarTablas();
@@ -83,6 +84,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Lee y guarda desde el formulario la configuracion Singleton de la biblioteca. */
     private void guardarConfiguracion() {
         try {
             double porcentajeMulta = Double.parseDouble(porcentajeMultaField.getText().trim());
@@ -95,6 +97,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Construye y registra un libro a partir de los campos de la interfaz. */
     private void registrarLibro() {
         try {
             Libro libro = Libro.builder(codigoField.getText(), tituloField.getText(), autorField.getText())
@@ -110,6 +113,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Solicita al servicio una copia del libro seleccionado mediante sus codigos. */
     private void clonarLibro() {
         try {
             servicioBiblioteca.clonarLibro(codigoBaseField.getText(), nuevoCodigoField.getText());
@@ -123,6 +127,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Registra un prestamo usando el codigo del libro y los dias indicados. */
     private void prestarLibro() {
         try {
             int diasPrestamo = Integer.parseInt(diasPrestamoField.getText().trim());
@@ -136,6 +141,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Registra una devolucion y muestra la multa resultante si existe. */
     private void devolverLibro() {
         try {
             Prestamo prestamo = servicioBiblioteca.devolverLibro(codigoDevolucionField.getText());
@@ -148,6 +154,7 @@ public class BibliotecaController {
     }
 
     @FXML
+    /** Restablece los campos del formulario de registro de libros. */
     private void limpiarFormularioLibro() {
         codigoField.clear();
         tituloField.clear();
@@ -155,6 +162,7 @@ public class BibliotecaController {
         categoriaCombo.setValue(CategoriaLibro.INGENIERIA);
     }
 
+    /** Carga valores iniciales y opciones de los controles del formulario. */
     private void configurarFormulario() {
         ConfiguracionBiblioteca configuracion = ConfiguracionBiblioteca.getInstancia();
         nombreBibliotecaField.setText(configuracion.getNombre());
@@ -165,6 +173,7 @@ public class BibliotecaController {
         diasPrestamoField.setText("7");
     }
 
+    /** Vincula las columnas de las tablas con las propiedades del modelo. */
     private void configurarTablas() {
         codigoColumn.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tituloColumn.setCellValueFactory(new PropertyValueFactory<>("titulo"));
@@ -183,6 +192,7 @@ public class BibliotecaController {
         prestamosTable.setItems(prestamos);
     }
 
+    /** Sincroniza las tablas observables con los datos del servicio. */
     private void refrescarTablas() {
         libros.setAll(servicioBiblioteca.obtenerLibros());
         prestamos.setAll(servicioBiblioteca.obtenerPrestamos());
@@ -190,11 +200,13 @@ public class BibliotecaController {
         prestamosTable.refresh();
     }
 
+    /** Muestra un mensaje de operacion exitosa en color verde. */
     private void mostrarMensaje(String mensaje) {
         mensajeLabel.setText(mensaje);
         mensajeLabel.setStyle("-fx-text-fill: #166534;");
     }
 
+    /** Muestra un mensaje de error en color rojo. */
     private void mostrarError(String mensaje) {
         mensajeLabel.setText(mensaje);
         mensajeLabel.setStyle("-fx-text-fill: #b91c1c;");

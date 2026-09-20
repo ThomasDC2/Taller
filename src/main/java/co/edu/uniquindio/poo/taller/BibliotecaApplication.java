@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class BibliotecaApplication extends Application {
     @Override
+    /** Carga la vista FXML y muestra la ventana principal de la aplicacion. */
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("biblioteca-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 980, 640);
@@ -17,6 +18,7 @@ public class BibliotecaApplication extends Application {
         stage.show();
     }
 
+    /** Punto de entrada que inicia el ciclo de vida de JavaFX. */
     public static void main(String[] args) {
         launch(args);
     }
